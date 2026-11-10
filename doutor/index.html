@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Derm.AI Doctor · Protótipo do doutor</title>
+  <meta name="description" content="Protótipo navegável do app do doutor Derm.AI Doctor">
+  <meta name="theme-color" content="#5BA2F4">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <style>
+    :root { --photo-pos: 50% 50%; }
+    .viewfinder, .photo, .orb .thumb { background-image: url('../assets/img/lesao_doutor.jpg'); }
+  </style>
+</head>
+<body data-theme="doutor" data-home="boas-vindas">
+<div class="stage">
+  <div class="device-wrap">
+    <div class="device">
+
+      <!-- 01 · BOAS-VINDAS -->
+      <section class="screen" id="boas-vindas" data-label="Boas-vindas">
+        <div class="hero">
+          <div class="statusbar"></div>
+          <div class="logo"><span class="orbit"></span><i data-icon="stethoscope"></i></div>
+        </div>
+        <div class="welcome-sheet">
+          <h1 class="brand">Derm.AI <span>Doctor</span></h1>
+          <p class="lead">Coleta de imagens e apoio ao diagnóstico dermatológico.</p>
+          <ul class="bento">
+            <li><span class="mini"><i data-icon="microscope"></i></span>Clínica e dermatoscopia</li>
+            <li><span class="mini"><i data-icon="activity"></i></span>Probabilidade por diagnóstico</li>
+            <li><span class="mini"><i data-icon="clipboard"></i></span>Feedback que treina a IA</li>
+          </ul>
+          <div class="grow"></div>
+          <button class="btn primary block" data-go="paciente"><i data-icon="camera"></i>Nova avaliação</button>
+          <button class="link" data-sheet="m-termos">Ver termos e condições</button>
+        </div>
+        <span class="version">v0.0.5</span>
+      </section>
+
+      <!-- 02 · REGISTRO DO PACIENTE -->
+      <section class="screen" id="paciente" data-label="Registro do paciente">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI Doctor" data-action="user" data-action-sheet="m-perfil"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="edit" class="i-26"></i></span><h1>Registro do paciente</h1></div>
+            <p class="hdr-sub">Dados opcionais e anônimos.</p>
+          </div>
+          <div class="stepper" data-steps="Paciente|Lesão|Imagem|Foto" data-current="1"></div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div>
+              <label class="q" for="idade">Idade do paciente</label>
+              <label class="age-field">
+                <input id="idade" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" value="23" placeholder="00" autocomplete="off">
+                <span class="unit">anos</span>
+                <span class="kbd" aria-hidden="true"><i data-icon="keyboard" class="i-20"></i></span>
+              </label>
+              <p class="age-msg">Toque para digitar.</p>
+            </div>
+            <div>
+              <div class="q">Sexo</div>
+              <div class="tiles" role="radiogroup" aria-label="Sexo do paciente">
+                <button class="tile-opt" role="radio" aria-checked="true"><span class="bub"><i data-icon="mars"></i></span>Masculino</button>
+                <button class="tile-opt" role="radio" aria-checked="false"><span class="bub"><i data-icon="venus"></i></span>Feminino</button>
+                <button class="tile-opt" role="radio" aria-checked="false"><span class="bub"><i data-icon="circle-user"></i></span>Outro</button>
+                <button class="tile-opt" role="radio" aria-checked="false"><span class="bub"><i data-icon="eye-off"></i></span>Prefiro não dizer</button>
+              </div>
+            </div>
+            <div class="callout"><i data-icon="lock"></i><span>Nenhum dado que identifique o paciente é coletado.</span></div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="lesao">Continuar<i data-icon="arrow-right"></i></button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 03 · SOBRE A LESÃO -->
+      <section class="screen" id="lesao" data-label="Sobre a lesão">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI Doctor" data-action="user" data-action-sheet="m-perfil"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="stethoscope" class="i-26"></i></span><h1>Sobre a lesão</h1></div>
+            <p class="hdr-sub">Fototipo e localização da lesão.</p>
+          </div>
+          <div class="stepper" data-steps="Paciente|Lesão|Imagem|Foto" data-current="2"></div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div>
+              <div class="q">Fototipo (Fitzpatrick)
+                <button class="hint-btn" data-sheet="m-fitz" aria-label="Ver escala de Fitzpatrick"><i data-icon="help" class="i-20"></i></button>
+              </div>
+              <div class="tones" role="radiogroup" aria-label="Fototipo de Fitzpatrick">
+                <button class="tone-opt lt" role="radio" aria-checked="true" aria-label="Tipo I" style="--tone:var(--fitz-1)"><b>I</b></button>
+                <button class="tone-opt lt" role="radio" aria-checked="false" aria-label="Tipo II" style="--tone:var(--fitz-2)"><b>II</b></button>
+                <button class="tone-opt lt" role="radio" aria-checked="false" aria-label="Tipo III" style="--tone:var(--fitz-3)"><b>III</b></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Tipo IV" style="--tone:var(--fitz-4)"><b>IV</b></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Tipo V" style="--tone:var(--fitz-5)"><b>V</b></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Tipo VI" style="--tone:var(--fitz-6)"><b>VI</b></button>
+              </div>
+            </div>
+            <div class="body-card">
+              <div class="body-top">
+                <div class="seg"><button data-body-view="frente" aria-pressed="true">Anterior</button><button data-body-view="costas" aria-pressed="false">Posterior</button></div>
+                <span class="pill"><i data-icon="map-pin" class="i-16"></i><span data-bind-target="regiao">Braços</span></span>
+              </div>
+              <svg class="bm" viewBox="0 0 200 340" role="radiogroup" aria-label="Região do corpo" data-bind="regiao">
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="true" aria-label="Braços" data-value="Braços"><rect x="40" y="86" width="19" height="92" rx="9.5"/><rect x="141" y="86" width="19" height="92" rx="9.5"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Pernas" data-value="Pernas"><rect x="67" y="184" width="30" height="124" rx="15"/><rect x="103" y="184" width="30" height="124" rx="15"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Tronco" data-value="Tronco" data-torso><rect x="64" y="68" width="72" height="112" rx="24"/></g>
+                <path class="spine" d="M100 76 V172"/>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Ombros" data-value="Ombros"><ellipse cx="62" cy="81" rx="14" ry="12"/><ellipse cx="138" cy="81" rx="14" ry="12"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Pescoço" data-value="Pescoço"><rect x="91" y="51" width="18" height="19" rx="6"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Cabeça" data-value="Cabeça"><ellipse cx="100" cy="29" rx="21" ry="25"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Mãos" data-value="Mãos"><ellipse cx="49.5" cy="192" rx="10.5" ry="13"/><ellipse cx="150.5" cy="192" rx="10.5" ry="13"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Pés" data-value="Pés"><ellipse cx="80" cy="321" rx="17" ry="9"/><ellipse cx="120" cy="321" rx="17" ry="9"/></g>
+                <g class="bm-pin"><circle class="halo" r="9"/><circle class="core" r="6"/></g>
+              </svg>
+            </div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="tipo">Continuar<i data-icon="arrow-right"></i></button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 04 · TIPO DA IMAGEM -->
+      <section class="screen" id="tipo" data-label="Tipo da imagem">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI Doctor" data-action="user" data-action-sheet="m-perfil"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="camera" class="i-26"></i></span><h1>Tipo da imagem</h1></div>
+            <p class="hdr-sub">Como a lesão será fotografada?</p>
+          </div>
+          <div class="stepper" data-steps="Paciente|Lesão|Imagem|Foto" data-current="3"></div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div class="type-list" role="radiogroup" aria-label="Tipo da imagem" data-bind="modo">
+              <button class="type-card" role="radio" aria-checked="true" data-value="Clínica">
+                <span class="art"><i data-icon="camera"></i></span><span class="radio"></span>
+                <b>Clínica</b><small>Foto comum da pele, como vista a olho nu.</small>
+              </button>
+              <button class="type-card alt" role="radio" aria-checked="false" data-value="Dermatoscópica">
+                <span class="art"><i data-icon="microscope"></i></span><span class="radio"></span>
+                <b>Dermatoscópica</b><small>Foto ampliada, feita com dermatoscópio.</small>
+              </button>
+            </div>
+            <div class="callout"><i data-icon="info"></i><span>O tipo da imagem define qual modelo de IA fará a análise.</span></div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="camera">Abrir câmera<i data-icon="camera"></i></button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 05 · CÂMERA -->
+      <section class="screen camera dark" id="camera" data-label="Câmera">
+        <div class="viewfinder"></div>
+        <div class="brackets" aria-hidden="true"></div>
+        <div class="guide" aria-hidden="true"></div>
+        <div class="top">
+          <div class="statusbar" style="color:#fff"></div>
+          <div class="topbar" data-title="Fotografe a lesão"></div>
+          <div class="stepper" data-steps="Paciente|Lesão|Imagem|Foto" data-current="4"></div>
+        </div>
+        <div class="mode-pill"><span class="pill"><i data-icon="camera" class="i-16"></i>Modo <span data-bind-target="modo">Clínica</span></span></div>
+        <div class="hints" aria-live="polite">
+          <span class="hint wait"><i data-icon="scan"></i>Procurando a lesão…</span>
+          <span class="hint ready"><i data-icon="check"></i>Pronto! Toque para fotografar</span>
+        </div>
+        <div class="grow"></div>
+        <div class="quality">
+          <span class="qchip"><span class="qi"><i data-icon="sun"></i></span>Luz</span>
+          <span class="qchip"><span class="qi"><i data-icon="focus"></i></span>Foco</span>
+          <span class="qchip"><span class="qi"><i data-icon="ruler"></i></span>Distância</span>
+        </div>
+        <div class="cam-controls">
+          <button class="cam-btn" data-go="revisar" aria-label="Escolher da galeria"><i data-icon="image"></i></button>
+          <button class="shutter" data-shutter data-go="revisar" aria-label="Tirar foto"></button>
+          <button class="cam-btn" data-flash-toggle aria-pressed="false" aria-label="Flash desligado"><i data-icon="zap-off"></i></button>
+        </div>
+        <div class="flash"></div>
+      </section>
+
+      <!-- 06 · REVISAR FOTO -->
+      <section class="screen plain on-light" id="revisar" data-label="Revisar foto">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Revisar foto"></div>
+        <div class="content">
+          <h2>Imagem capturada</h2>
+          <p class="sub">Confira a qualidade antes da análise.</p>
+          <div class="photo review-photo" role="img" aria-label="Foto capturada da lesão">
+            <span class="glass" style="top:14px;left:14px"><i data-icon="sparkles"></i>Nitidez ótima</span>
+            <span class="glass" style="top:14px;right:14px"><i data-icon="camera"></i><span data-bind-target="modo">Clínica</span></span>
+          </div>
+          <ul class="qgrid">
+            <li><span class="ok"><i data-icon="check"></i></span>Centralizada</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Bordas nítidas</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Luz uniforme</li>
+          </ul>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-back><i data-icon="rotate"></i>Refazer</button>
+          <button class="btn primary" data-go="analisando">Analisar<i data-icon="sparkles"></i></button>
+        </div>
+      </section>
+
+      <!-- 07 · ANALISANDO -->
+      <section class="screen analyzing dark" id="analisando" data-label="Analisando" data-next="resultados">
+        <div class="statusbar" style="color:#fff"></div>
+        <div class="center">
+          <div class="orb">
+            <span class="rip"></span><span class="rip"></span><span class="rip"></span>
+            <svg viewBox="0 0 200 200"><circle class="track" cx="100" cy="100" r="95" fill="none" stroke-width="5"/><circle class="bar" cx="100" cy="100" r="95" fill="none" stroke-width="5" stroke-linecap="round"/></svg>
+            <div class="thumb"></div>
+          </div>
+          <span class="pct"><b>0</b>%</span>
+          <h2>Analisando a imagem</h2>
+          <p>Calculando a probabilidade de cada diagnóstico.</p>
+          <ul class="progress-list" aria-live="polite">
+            <li><span class="ok"><i data-icon="check"></i></span>Lesão detectada</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Características extraídas</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Probabilidades calculadas</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 08 · RESULTADOS (detecção + probabilidades) -->
+      <section class="screen result on-light risk-low" id="resultados" data-label="Resultados">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Resultados" data-action="user" data-action-sheet="m-perfil"></div>
+        <div class="content">
+          <div class="res-photo detect" id="detect">
+            <div class="photo" role="img" aria-label="Lesão com área detectada pela IA"></div>
+            <div class="bbox"><span>Nevus · 0,96</span></div>
+            <span class="glass tl"><i data-icon="map-pin"></i>Braços · <span data-bind-target="modo">Clínica</span></span>
+            <span class="glass detect-toggle">Detecção<button class="switch" role="switch" aria-checked="true" data-toggles="detect" aria-label="Mostrar área detectada"></button></span>
+          </div>
+          <div class="card dx-card">
+            <div>
+              <span class="overline">Diagnóstico mais provável</span>
+              <div class="dx-name">Nevus</div>
+              <div class="dx-desc">Lesão melanocítica benigna · risco estimado baixo</div>
+            </div>
+            <div class="donut" data-v="96"><span data-count="96" data-suffix="%">96%</span></div>
+          </div>
+          <div class="card">
+            <span class="overline">Probabilidade por diagnóstico</span>
+            <div class="probs" style="margin-top:14px">
+              <div class="prob top"><div class="row"><span>Nevus</span><b>96%</b></div><div class="mbar"><i data-w="96%"></i></div></div>
+              <div class="prob"><div class="row"><span>Carcinoma de células escamosas</span><b>4%</b></div><div class="mbar"><i data-w="4%"></i></div></div>
+              <div class="prob"><div class="row"><span>Queratose seborreica</span><b>&lt; 1%</b></div><div class="mbar"><i data-w="1%"></i></div></div>
+              <div class="prob"><div class="row"><span>Queratose actínica</span><b>&lt; 1%</b></div><div class="mbar"><i data-w="1%"></i></div></div>
+              <div class="prob"><div class="row"><span>Carcinoma basocelular</span><b>&lt; 1%</b></div><div class="mbar"><i data-w="1%"></i></div></div>
+              <div class="prob"><div class="row"><span>Melanoma</span><b>&lt; 1%</b></div><div class="mbar"><i data-w="1%"></i></div></div>
+            </div>
+          </div>
+          <div class="callout muted"><i data-icon="info"></i><span>Probabilidades do modelo de IA. Não substituem o julgamento clínico.</span></div>
+        </div>
+        <div class="sheet-footer">
+          <button class="btn primary block" data-go="feedback">Avaliar resultado<i data-icon="arrow-right"></i></button>
+        </div>
+      </section>
+
+      <!-- 09 · FEEDBACK -->
+      <section class="screen" id="feedback" data-label="Feedback">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI Doctor" data-action="user" data-action-sheet="m-perfil"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="microscope" class="i-26"></i></span><h1>Feedback</h1></div>
+            <p class="hdr-sub">Sua avaliação ajuda a treinar o modelo.</p>
+          </div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div>
+              <div class="q">O diagnóstico principal (Nevus) está:</div>
+              <div class="options" role="radiogroup" aria-label="Avaliação do diagnóstico principal">
+                <button class="option" role="radio" aria-checked="false"><span class="lead-ic"><i data-icon="check" class="i-20"></i></span><span>Correto</span><span class="radio"></span></button>
+                <button class="option" role="radio" aria-checked="true" data-reveal="q-correto"><span class="lead-ic"><i data-icon="x" class="i-20"></i></span><span>Incorreto</span><span class="radio"></span></button>
+                <button class="option" role="radio" aria-checked="false"><span class="lead-ic"><i data-icon="help" class="i-20"></i></span><span>Não tenho certeza</span><span class="radio"></span></button>
+              </div>
+            </div>
+            <div id="q-correto">
+              <div class="q">Qual o diagnóstico correto?</div>
+              <div class="chips" role="radiogroup" aria-label="Diagnóstico correto">
+                <button class="chip" role="radio" aria-checked="false">Carcinoma basocelular</button>
+                <button class="chip" role="radio" aria-checked="true">Melanoma</button>
+                <button class="chip" role="radio" aria-checked="false">Queratose seborreica</button>
+                <button class="chip" role="radio" aria-checked="false">Queratose actínica</button>
+                <button class="chip" role="radio" aria-checked="false">Carcinoma de células escamosas</button>
+                <button class="chip" role="radio" aria-checked="false">Não tenho certeza</button>
+                <button class="chip" role="radio" aria-checked="false">Outro</button>
+              </div>
+            </div>
+            <div>
+              <div class="q">Observações <small>opcional</small></div>
+              <textarea class="input" placeholder="Ex.: bordas irregulares, crescimento recente…" aria-label="Observações"></textarea>
+            </div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="envio">Continuar<i data-icon="arrow-right"></i></button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 10 · ENVIO DO RESULTADO -->
+      <section class="screen" id="envio" data-label="Envio do resultado">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI Doctor" data-action="user" data-action-sheet="m-perfil"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="send" class="i-26"></i></span><h1>Envio do resultado</h1></div>
+            <p class="hdr-sub">Contribua com a base de dados.</p>
+          </div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div class="share-hero"><span><i data-icon="shield-check"></i></span></div>
+            <p class="share-text">Escolha o que enviar, de forma anônima, para melhorar a IA.</p>
+            <ul class="card consent">
+              <li><span class="bub"><i data-icon="image"></i></span><div><b>Imagem</b><small>Clínica · Braços</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Enviar imagem"></button></li>
+              <li><span class="bub"><i data-icon="user"></i></span><div><b>Dados do paciente</b><small>Idade, sexo e fototipo</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Enviar dados do paciente"></button></li>
+              <li><span class="bub"><i data-icon="clipboard"></i></span><div><b>Seu feedback</b><small>Avaliação do diagnóstico</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Enviar feedback"></button></li>
+            </ul>
+            <div class="trust"><span><i data-icon="lock"></i>Sem identificação</span><span><i data-icon="shield-check"></i>Só para pesquisa</span></div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="obrigado"><i data-icon="send"></i>Enviar</button>
+            <button class="btn text" data-go="obrigado">Não enviar</button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 11 · CONCLUÍDO -->
+      <section class="screen plain" id="obrigado" data-label="Concluído">
+        <div class="statusbar"></div>
+        <div class="done-wrap">
+          <div class="done-badge"><span><i data-icon="check"></i></span><div class="confetti"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <h1>Avaliação concluída</h1>
+          <p>Obrigado! Cada imagem revisada deixa o modelo mais preciso.</p>
+        </div>
+        <div class="sheet-footer">
+          <button class="btn primary block" data-reset data-go="paciente"><i data-icon="camera"></i>Nova avaliação</button>
+          <button class="btn text" data-reset data-go="boas-vindas">Voltar ao início</button>
+        </div>
+      </section>
+
+      <!-- ===== Bottom sheets ===== -->
+      <div class="modal" id="m-termos" aria-hidden="true" role="dialog" aria-labelledby="t-termos">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-termos">Termos e condições</h3>
+          <p>O Derm.AI Doctor é uma ferramenta de pesquisa para apoio à decisão clínica. Os resultados não substituem o exame e o julgamento do profissional.</p>
+          <p>As imagens enviadas são anônimas e usadas apenas para pesquisa e aprimoramento do modelo.</p>
+          <p><em>Texto provisório do protótipo.</em></p>
+          <button class="btn primary block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="modal" id="m-perfil" aria-hidden="true" role="dialog" aria-labelledby="t-perfil">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-perfil">Sua conta</h3>
+          <ul class="tips">
+            <li><span class="mini"><i data-icon="user"></i></span>Profissional de saúde</li>
+            <li><span class="mini"><i data-icon="clipboard"></i></span>12 avaliações enviadas</li>
+            <li><span class="mini"><i data-icon="file-text"></i></span>Termos e condições</li>
+          </ul>
+          <button class="btn secondary block" data-close>Fechar</button>
+        </div>
+      </div>
+      <div class="modal" id="m-fitz" aria-hidden="true" role="dialog" aria-labelledby="t-fitz">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-fitz">Escala de Fitzpatrick</h3>
+          <ul class="fitz-table">
+            <li><i style="background:var(--fitz-1)"></i><b>I</b>Sempre queima, nunca bronzeia</li>
+            <li><i style="background:var(--fitz-2)"></i><b>II</b>Queima com facilidade, bronzeia pouco</li>
+            <li><i style="background:var(--fitz-3)"></i><b>III</b>Queima moderadamente, bronzeia aos poucos</li>
+            <li><i style="background:var(--fitz-4)"></i><b>IV</b>Queima pouco, bronzeia com facilidade</li>
+            <li><i style="background:var(--fitz-5)"></i><b>V</b>Raramente queima, bronzeia muito</li>
+            <li><i style="background:var(--fitz-6)"></i><b>VI</b>Nunca queima, pele muito pigmentada</li>
+          </ul>
+          <button class="btn primary block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="toast" role="status"><i data-icon="check"></i><span></span></div>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Navegação do protótipo">
+    <div class="brand-sm">Derm.AI <span>Doctor</span></div>
+    <p class="desc">Protótipo navegável do app do doutor. Clique na tela do celular ou pule para qualquer etapa abaixo.</p>
+    <h2>Fluxo de telas</h2>
+    <ol class="flow" id="flow"></ol>
+    <div class="panel-links">
+      <a href="../paciente/">Abrir app do paciente →</a>
+      <a href="../">← Voltar ao início</a>
+    </div>
+  </aside>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

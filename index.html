@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Derm.AI · Protótipos</title>
+  <meta name="description" content="Protótipos navegáveis dos apps Derm.AI You! (paciente) e Derm.AI Doctor (doutor).">
+  <meta name="theme-color" content="#6C63FF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Roboto', system-ui, sans-serif; color: #1B1B33; min-height: 100vh;
+      background: radial-gradient(1200px 600px at 10% -10%, #DCDAFF 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 110% 110%, #B9D9FF 0%, transparent 60%), #F7F7FC;
+      background-attachment: fixed;
+      display: flex; flex-direction: column; align-items: center; padding: 64px 16px 32px;
+    }
+    header { text-align: center; max-width: 640px; }
+    .logo { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 20px; display: grid; place-items: center;
+      background: linear-gradient(135deg, #6C63FF, #5BA2F4); color: #fff; box-shadow: 0 12px 30px -10px rgba(108, 99, 255, .6); }
+    .logo svg { width: 36px; height: 36px; }
+    h1 { font-size: clamp(32px, 6vw, 44px); line-height: 1.1; font-weight: 700; letter-spacing: -.5px; }
+    h1 span { color: #6C63FF; }
+    header p { margin-top: 12px; font-size: 17px; line-height: 26px; color: #66677F; }
+    .apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 760px; margin-top: 44px; }
+    .app { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 28px; border-radius: 28px; text-decoration: none; color: #fff; overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease; }
+    .app:hover { transform: translateY(-4px); }
+    .app.pac { background: #6C63FF; box-shadow: 0 24px 50px -24px rgba(108, 99, 255, .8); }
+    .app.doc { background: #3F8BE6; box-shadow: 0 24px 50px -24px rgba(63, 139, 230, .8); }
+    .app::after { content: ''; position: absolute; right: -60px; top: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255, 255, 255, .12); }
+    .app .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; background: rgba(255, 255, 255, .2); }
+    .app .ic svg { width: 28px; height: 28px; }
+    .app h2 { font-size: 26px; font-weight: 700; }
+    .app h2 span { opacity: .75; font-weight: 500; }
+    .app p { font-size: 15px; line-height: 22px; color: rgba(255, 255, 255, .88); }
+    .app ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+    .app li { font-size: 12px; font-weight: 500; padding: 5px 10px; border-radius: 12px; background: rgba(255, 255, 255, .18); }
+    .app .go { margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; height: 44px; padding: 0 18px; border-radius: 22px; background: #fff; font-weight: 600; font-size: 15px; }
+    .app.pac .go { color: #5A51F0; } .app.doc .go { color: #3F8BE6; }
+    footer { margin-top: auto; padding-top: 48px; font-size: 13px; color: #9A9BB0; text-align: center; line-height: 20px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></div>
+    <h1>Derm.<span>AI</span> · Protótipos</h1>
+    <p>Protótipos navegáveis do redesign dos apps do paciente e do doutor, feitos a partir da Sprint Review W45.</p>
+  </header>
+
+  <main class="apps">
+    <a class="app pac" href="paciente/">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></span>
+      <h2>Derm.AI You! <span>· Paciente</span></h2>
+      <p>Autoavaliação de pintas e manchas: registro anônimo, foto guiada e resultado com nível de risco.</p>
+      <ul><li>14 telas</li><li>Mapa do corpo</li><li>Resultado simples ou detalhado</li></ul>
+      <span class="go">Abrir protótipo →</span>
+    </a>
+    <a class="app doc" href="doutor/">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></span>
+      <h2>Derm.AI Doctor <span>· Doutor</span></h2>
+      <p>Coleta clínica e dermatoscópica, área detectada pela IA, probabilidades por diagnóstico e feedback.</p>
+      <ul><li>11 telas</li><li>Fitzpatrick I–VI</li><li>Detecção da lesão</li></ul>
+      <span class="go">Abrir protótipo →</span>
+    </a>
+  </main>
+
+  <footer>Protótipo de interface: os dados e resultados exibidos são fictícios.<br>Melhor visualizado no computador (com painel de navegação) ou direto no celular.</footer>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Derm.AI You! · Protótipo do paciente</title>
+  <meta name="description" content="Protótipo navegável do app do paciente Derm.AI You!">
+  <meta name="theme-color" content="#6C63FF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/app.css">
+  <style>
+    :root { --photo-pos: 40% 55%; }
+    .viewfinder, .photo, .orb .thumb { background-image: url('../assets/img/lesao_paciente.jpg'); }
+  </style>
+</head>
+<body data-theme="paciente" data-home="boas-vindas">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="riskGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5BA2F4"/><stop offset=".5" stop-color="#6C63FF"/><stop offset="1" stop-color="#EC6E6F"/>
+    </linearGradient>
+  </defs>
+</svg>
+<div class="stage">
+  <div class="device-wrap">
+    <div class="device">
+
+      <!-- 01 · BOAS-VINDAS -->
+      <section class="screen" id="boas-vindas" data-label="Boas-vindas">
+        <div class="hero">
+          <div class="statusbar"></div>
+          <div class="logo"><span class="orbit"></span><i data-icon="stethoscope"></i></div>
+        </div>
+        <div class="welcome-sheet">
+          <h1 class="brand">Derm.AI <span>You!</span></h1>
+          <p class="lead">Avalie pintas e manchas da pele com apoio de inteligência artificial.</p>
+          <ul class="bento">
+            <li><span class="mini"><i data-icon="scan"></i></span>Foto guiada em segundos</li>
+            <li><span class="mini"><i data-icon="sparkles"></i></span>Análise por IA</li>
+            <li><span class="mini"><i data-icon="shield-check"></i></span>100% anônimo</li>
+          </ul>
+          <div class="grow"></div>
+          <button class="btn primary block" data-go="registro"><i data-icon="camera"></i>Começar avaliação</button>
+          <button class="link" data-sheet="m-termo">Ver termo de compromisso</button>
+        </div>
+        <span class="version">v0.0.5</span>
+      </section>
+
+      <!-- 02 · SEU REGISTRO -->
+      <section class="screen" id="registro" data-label="Seu registro">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI You!" data-action="help" data-action-sheet="m-ajuda"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="edit" class="i-26"></i></span><h1>Seu registro</h1></div>
+            <p class="hdr-sub">Informações opcionais e anônimas.</p>
+          </div>
+          <div class="stepper" data-steps="Perfil|Lesão|Foto" data-current="1"></div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div>
+              <label class="q" for="idade">Qual a sua idade?</label>
+              <label class="age-field">
+                <input id="idade" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" value="23" placeholder="00" autocomplete="off">
+                <span class="unit">anos</span>
+                <span class="kbd" aria-hidden="true"><i data-icon="keyboard" class="i-20"></i></span>
+              </label>
+              <p class="age-msg">Toque para digitar.</p>
+            </div>
+            <div>
+              <div class="q">Gênero</div>
+              <div class="tiles" role="radiogroup" aria-label="Gênero">
+                <button class="tile-opt" role="radio" aria-checked="true"><span class="bub"><i data-icon="mars"></i></span>Masculino</button>
+                <button class="tile-opt" role="radio" aria-checked="false"><span class="bub"><i data-icon="venus"></i></span>Feminino</button>
+                <button class="tile-opt" role="radio" aria-checked="false"><span class="bub"><i data-icon="circle-user"></i></span>Outro</button>
+                <button class="tile-opt" role="radio" aria-checked="false"><span class="bub"><i data-icon="eye-off"></i></span>Prefiro não dizer</button>
+              </div>
+            </div>
+            <div class="callout"><i data-icon="lock"></i><span>Não pedimos nome, CPF ou contato.</span></div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="lesao">Continuar<i data-icon="arrow-right"></i></button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 03 · SOBRE A LESÃO -->
+      <section class="screen" id="lesao" data-label="Sobre a lesão">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI You!" data-action="help" data-action-sheet="m-ajuda"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="stethoscope" class="i-26"></i></span><h1>Sobre a lesão</h1></div>
+            <p class="hdr-sub">Toque no corpo onde está a lesão.</p>
+          </div>
+          <div class="stepper" data-steps="Perfil|Lesão|Foto" data-current="2"></div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div class="body-card">
+              <div class="body-top">
+                <div class="seg"><button data-body-view="frente" aria-pressed="true">Frente</button><button data-body-view="costas" aria-pressed="false">Costas</button></div>
+                <span class="pill"><i data-icon="map-pin" class="i-16"></i><span data-bind-target="regiao">Braços</span></span>
+              </div>
+              <svg class="bm" viewBox="0 0 200 340" role="radiogroup" aria-label="Região do corpo" data-bind="regiao">
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="true" aria-label="Braços" data-value="Braços"><rect x="40" y="86" width="19" height="92" rx="9.5"/><rect x="141" y="86" width="19" height="92" rx="9.5"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Pernas" data-value="Pernas"><rect x="67" y="184" width="30" height="124" rx="15"/><rect x="103" y="184" width="30" height="124" rx="15"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Tronco" data-value="Tronco" data-torso><rect x="64" y="68" width="72" height="112" rx="24"/></g>
+                <path class="spine" d="M100 76 V172"/>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Ombros" data-value="Ombros"><ellipse cx="62" cy="81" rx="14" ry="12"/><ellipse cx="138" cy="81" rx="14" ry="12"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Pescoço" data-value="Pescoço"><rect x="91" y="51" width="18" height="19" rx="6"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Cabeça" data-value="Cabeça"><ellipse cx="100" cy="29" rx="21" ry="25"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Mãos" data-value="Mãos"><ellipse cx="49.5" cy="192" rx="10.5" ry="13"/><ellipse cx="150.5" cy="192" rx="10.5" ry="13"/></g>
+                <g class="bm-r" role="radio" tabindex="0" aria-checked="false" aria-label="Pés" data-value="Pés"><ellipse cx="80" cy="321" rx="17" ry="9"/><ellipse cx="120" cy="321" rx="17" ry="9"/></g>
+                <g class="bm-pin"><circle class="halo" r="9"/><circle class="core" r="6"/></g>
+              </svg>
+            </div>
+            <div>
+              <div class="q">Tom de pele aproximado
+                <button class="hint-btn" data-sheet="m-tons" aria-label="Por que perguntamos o tom de pele?"><i data-icon="help" class="i-20"></i></button>
+              </div>
+              <div class="tones" role="radiogroup" aria-label="Tom de pele">
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Muito clara" style="--tone:var(--fitz-1)"></button>
+                <button class="tone-opt" role="radio" aria-checked="true" aria-label="Clara" style="--tone:var(--fitz-2)"></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Morena clara" style="--tone:var(--fitz-3)"></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Morena" style="--tone:var(--fitz-4)"></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Morena escura" style="--tone:var(--fitz-5)"></button>
+                <button class="tone-opt" role="radio" aria-checked="false" aria-label="Negra" style="--tone:var(--fitz-6)"></button>
+              </div>
+            </div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="camera">Abrir câmera<i data-icon="camera"></i></button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 04 · CÂMERA -->
+      <section class="screen camera dark" id="camera" data-label="Câmera">
+        <div class="viewfinder"></div>
+        <div class="brackets" aria-hidden="true"></div>
+        <div class="guide" aria-hidden="true"></div>
+        <div class="top">
+          <div class="statusbar" style="color:#fff"></div>
+          <div class="topbar" data-title="Fotografe a lesão" data-action="help" data-action-sheet="m-ajuda"></div>
+          <div class="stepper" data-steps="Perfil|Lesão|Foto" data-current="3"></div>
+        </div>
+        <div class="hints" aria-live="polite">
+          <span class="hint wait"><i data-icon="scan"></i>Procurando a lesão…</span>
+          <span class="hint ready"><i data-icon="check"></i>Pronto! Toque para fotografar</span>
+        </div>
+        <div class="grow"></div>
+        <div class="quality">
+          <span class="qchip"><span class="qi"><i data-icon="sun"></i></span>Luz</span>
+          <span class="qchip"><span class="qi"><i data-icon="focus"></i></span>Foco</span>
+          <span class="qchip"><span class="qi"><i data-icon="ruler"></i></span>Distância</span>
+        </div>
+        <div class="cam-controls">
+          <button class="cam-btn" data-go="revisar" aria-label="Escolher da galeria"><i data-icon="image"></i></button>
+          <button class="shutter" data-shutter data-go="revisar" aria-label="Tirar foto"></button>
+          <button class="cam-btn" data-flash-toggle aria-pressed="false" aria-label="Flash desligado"><i data-icon="zap-off"></i></button>
+        </div>
+        <div class="flash"></div>
+      </section>
+
+      <!-- 05 · REVISAR FOTO -->
+      <section class="screen plain on-light" id="revisar" data-label="Revisar foto">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Revisar foto"></div>
+        <div class="content">
+          <h2>Ficou nítida?</h2>
+          <p class="sub">Confira antes de enviar para análise.</p>
+          <div class="photo review-photo" role="img" aria-label="Foto capturada da lesão">
+            <span class="glass" style="top:14px;left:14px"><i data-icon="sparkles"></i>Nitidez ótima</span>
+          </div>
+          <ul class="qgrid">
+            <li><span class="ok"><i data-icon="check"></i></span>Centralizada</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Em foco</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Boa luz</li>
+          </ul>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-back><i data-icon="rotate"></i>Tirar outra</button>
+          <button class="btn primary" data-go="analisando">Usar foto<i data-icon="check"></i></button>
+        </div>
+      </section>
+
+      <!-- 06 · ANALISANDO -->
+      <section class="screen analyzing dark" id="analisando" data-label="Analisando" data-next="resultado|medio|atencao" data-next-simple="simples-baixo|simples-medio|simples-alto">
+        <div class="statusbar" style="color:#fff"></div>
+        <div class="center">
+          <div class="orb">
+            <span class="rip"></span><span class="rip"></span><span class="rip"></span>
+            <svg viewBox="0 0 200 200"><circle class="track" cx="100" cy="100" r="95" fill="none" stroke-width="5"/><circle class="bar" cx="100" cy="100" r="95" fill="none" stroke-width="5" stroke-linecap="round"/></svg>
+            <div class="thumb"></div>
+          </div>
+          <span class="pct"><b>0</b>%</span>
+          <h2>Analisando sua foto</h2>
+          <p>Isso leva poucos segundos.</p>
+          <ul class="progress-list" aria-live="polite">
+            <li><span class="ok"><i data-icon="check"></i></span>Imagem recebida</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Padrões identificados</li>
+            <li><span class="ok"><i data-icon="check"></i></span>Avaliação de risco pronta</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 07 · RESULTADO: BAIXO RISCO -->
+      <section class="screen result on-light risk-low" id="resultado" data-label="Resultado · baixo risco">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Resultado" data-action="help" data-action-sheet="m-entenda"></div>
+        <div class="content">
+          <div class="res-photo">
+            <div class="photo" role="img" aria-label="Foto analisada"></div>
+            <span class="lesion-mark"></span>
+            <span class="glass tl"><i data-icon="map-pin"></i>Braços</span>
+            <span class="glass tr">Hoje, 16:31</span>
+          </div>
+          <div class="card gauge-card">
+            <span class="overline">Chance de ser um problema</span>
+            <div class="gauge" data-v="12">
+              <svg viewBox="0 0 280 150" aria-hidden="true">
+                <path class="g-track" d="M40 130 A100 100 0 0 1 240 130" fill="none" stroke-width="18" stroke-linecap="round"/>
+                <path class="g-prog" d="M40 130 A100 100 0 0 1 240 130" fill="none" stroke-width="18" stroke-linecap="round"/>
+                <g class="needle"><circle class="knob" cx="140" cy="30" r="12"/></g>
+              </svg>
+              <div class="gauge-center"><b><span data-count="12">12</span><small>%</small></b><span class="risk-pill">Risco baixo</span></div>
+            </div>
+            <div class="scale"><span>Baixo</span><span>Moderado</span><span>Alto</span></div>
+            <p>Nenhum sinal de alerta encontrado nesta foto.</p>
+          </div>
+          <div class="card dx-card">
+            <div>
+              <span class="overline">Condição mais provável</span>
+              <div class="dx-name">Nevus</div>
+              <div class="dx-desc">Pinta comum, geralmente benigna.</div>
+            </div>
+            <div class="donut" data-v="94"><span data-count="94" data-suffix="%">94%</span></div>
+          </div>
+          <div class="card others">
+            <h3>Outras possibilidades</h3>
+            <ul>
+              <li><div class="row"><span>Queratose seborreica</span><b>4%</b></div><div class="mbar"><i data-w="4%"></i></div></li>
+              <li><div class="row"><span>Melanoma</span><b>1%</b></div><div class="mbar"><i data-w="1%"></i></div></li>
+            </ul>
+          </div>
+          <div class="card reco">
+            <span class="bub"><i data-icon="calendar"></i></span>
+            <div><b>Refaça a foto em 3 meses</b><p>Acompanhe se a pinta muda de cor, forma ou tamanho.</p></div>
+          </div>
+          <div class="callout muted"><i data-icon="info"></i><span>Esta avaliação não é um diagnóstico médico. Em caso de dúvida, procure um dermatologista.</span></div>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-go="envio">Continuar</button>
+          <button class="btn primary" data-toast="Lembrete criado para daqui a 3 meses"><i data-icon="bell"></i>Lembrete</button>
+        </div>
+      </section>
+
+      <!-- 08 · RESULTADO: MÉDIO RISCO -->
+      <section class="screen result on-light risk-mid" id="medio" data-label="Resultado · médio risco">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Resultado" data-action="help" data-action-sheet="m-entenda"></div>
+        <div class="content">
+          <div class="res-photo">
+            <div class="photo" role="img" aria-label="Foto analisada"></div>
+            <span class="lesion-mark"></span>
+            <span class="glass tl"><i data-icon="map-pin"></i>Braços</span>
+            <span class="glass tr">Hoje, 16:31</span>
+          </div>
+          <div class="card gauge-card">
+            <span class="overline">Chance de ser um problema</span>
+            <div class="gauge" data-v="46">
+              <svg viewBox="0 0 280 150" aria-hidden="true">
+                <path class="g-track" d="M40 130 A100 100 0 0 1 240 130" fill="none" stroke-width="18" stroke-linecap="round"/>
+                <path class="g-prog" d="M40 130 A100 100 0 0 1 240 130" fill="none" stroke-width="18" stroke-linecap="round"/>
+                <g class="needle"><circle class="knob" cx="140" cy="30" r="12"/></g>
+              </svg>
+              <div class="gauge-center"><b><span data-count="46">46</span><small>%</small></b><span class="risk-pill">Risco moderado</span></div>
+            </div>
+            <div class="scale"><span>Baixo</span><span>Moderado</span><span>Alto</span></div>
+            <p>Alguns sinais merecem a atenção de um médico.</p>
+          </div>
+          <div class="card dx-card">
+            <div>
+              <span class="overline">Condição mais provável</span>
+              <div class="dx-name">Queratose actínica</div>
+              <div class="dx-desc">Mancha causada pelo sol que pode evoluir.</div>
+            </div>
+            <div class="donut" data-v="58"><span data-count="58" data-suffix="%">58%</span></div>
+          </div>
+          <div class="card others">
+            <h3>Outras possibilidades</h3>
+            <ul>
+              <li><div class="row"><span>Carcinoma basocelular</span><b>27%</b></div><div class="mbar"><i data-w="27%"></i></div></li>
+              <li><div class="row"><span>Nevus</span><b>12%</b></div><div class="mbar"><i data-w="12%"></i></div></li>
+            </ul>
+          </div>
+          <div class="card reco">
+            <span class="bub"><i data-icon="stethoscope"></i></span>
+            <div><b>Mostre a um dermatologista</b><p>Agende uma consulta nas próximas semanas e refaça a foto em 1 mês.</p></div>
+          </div>
+          <div class="callout muted"><i data-icon="info"></i><span>Esta avaliação não é um diagnóstico médico. Só um dermatologista pode confirmar.</span></div>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-go="envio">Continuar</button>
+          <button class="btn primary" data-toast="Lembrete criado para daqui a 1 mês"><i data-icon="bell"></i>Lembrete</button>
+        </div>
+      </section>
+
+      <!-- 09 · RESULTADO: ALTO RISCO / ATENÇÃO -->
+      <section class="screen result on-light risk-high" id="atencao" data-label="Resultado · alto risco">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Resultado" data-action="help" data-action-sheet="m-porque"></div>
+        <div class="content">
+          <div class="alert-banner"><i data-icon="alert"></i><div><b>Procure um dermatologista</b>de preferência em até 2 semanas.</div></div>
+          <div class="res-photo">
+            <div class="photo" role="img" aria-label="Foto analisada"></div>
+            <span class="lesion-mark"></span>
+            <span class="glass tl"><i data-icon="map-pin"></i>Braços</span>
+            <span class="glass tr">Hoje, 16:31</span>
+          </div>
+          <div class="card gauge-card">
+            <span class="overline">Chance de ser um problema</span>
+            <div class="gauge" data-v="81">
+              <svg viewBox="0 0 280 150" aria-hidden="true">
+                <path class="g-track" d="M40 130 A100 100 0 0 1 240 130" fill="none" stroke-width="18" stroke-linecap="round"/>
+                <path class="g-prog" d="M40 130 A100 100 0 0 1 240 130" fill="none" stroke-width="18" stroke-linecap="round"/>
+                <g class="needle"><circle class="knob" cx="140" cy="30" r="12"/></g>
+              </svg>
+              <div class="gauge-center"><b><span data-count="81">81</span><small>%</small></b><span class="risk-pill">Risco alto</span></div>
+            </div>
+            <div class="scale"><span>Baixo</span><span>Moderado</span><span>Alto</span></div>
+            <p>Encontramos sinais que pedem avaliação médica.</p>
+          </div>
+          <div class="card dx-card">
+            <div>
+              <span class="overline">Condição mais provável</span>
+              <div class="dx-name">Melanoma</div>
+              <div class="dx-desc">Tipo de câncer de pele. Quanto antes avaliado, melhor.</div>
+            </div>
+            <div class="donut" data-v="72"><span data-count="72" data-suffix="%">72%</span></div>
+          </div>
+          <div class="card others">
+            <h3>Outras possibilidades</h3>
+            <ul>
+              <li><div class="row"><span>Nevus</span><b>18%</b></div><div class="mbar"><i data-w="18%"></i></div></li>
+              <li><div class="row"><span>Carcinoma basocelular</span><b>6%</b></div><div class="mbar"><i data-w="6%"></i></div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <span class="overline">O que fazer agora</span>
+            <ol class="steps" style="margin-top:12px">
+              <li><span class="n">1</span>Agende uma consulta em até 2 semanas.</li>
+              <li><span class="n">2</span>Mostre esta foto ao médico.</li>
+              <li><span class="n">3</span>Observe mudanças de cor, tamanho ou forma.</li>
+            </ol>
+          </div>
+          <div class="callout muted"><i data-icon="info"></i><span>Isto não é um diagnóstico. Muitas lesões assim são benignas, mas só um médico pode confirmar.</span></div>
+        </div>
+        <div class="sheet-footer">
+          <button class="btn alert block" data-go="envio">Entendi<i data-icon="arrow-right"></i></button>
+          <button class="link" data-sheet="m-porque" style="color:var(--alert-strong)">Por que estou vendo isto?</button>
+        </div>
+      </section>
+
+      <!-- 10–12 · RESULTADO SIMPLES (sem porcentagens, para não assustar) -->
+      <section class="screen calm on-light risk-low" id="simples-baixo" data-label="Resultado simples · baixo">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Seu resultado"></div>
+        <div class="content">
+          <div class="card calm-hero">
+            <div class="calm-ic"><i data-icon="smile"></i></div>
+            <h2>Parece tudo tranquilo</h2>
+            <p>Não encontramos sinais de alerta nesta pinta. Continue acompanhando, como de costume.</p>
+            <div class="levels" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+            <div class="levels-l"><b>Tranquilo</b><span style="text-align:center">Atenção</span><span style="text-align:right">Consulta</span></div>
+          </div>
+          <div class="card thumb-row">
+            <div class="photo" role="img" aria-label="Foto analisada"></div>
+            <div><b>Pinta no braço</b><small>Fotografada hoje, 16:31</small></div>
+          </div>
+          <div class="card">
+            <span class="overline">Próximos passos</span>
+            <ol class="steps" style="margin-top:12px">
+              <li><span class="n">1</span>Fotografe de novo em 3 meses.</li>
+              <li><span class="n">2</span>Repare se muda de cor, forma ou tamanho.</li>
+              <li><span class="n">3</span>Use protetor solar no dia a dia.</li>
+            </ol>
+          </div>
+          <div class="reassure"><i data-icon="heart"></i><span>Esta é uma triagem feita por IA para te orientar. Ela não substitui uma consulta médica.</span></div>
+          <button class="more-link" data-go="resultado">Ver resultado detalhado<i data-icon="chevron-right"></i></button>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-go="envio">Continuar</button>
+          <button class="btn primary" data-toast="Lembrete criado para daqui a 3 meses"><i data-icon="bell"></i>Lembrete</button>
+        </div>
+      </section>
+
+      <section class="screen calm on-light risk-mid" id="simples-medio" data-label="Resultado simples · médio">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Seu resultado"></div>
+        <div class="content">
+          <div class="card calm-hero">
+            <div class="calm-ic"><i data-icon="eye"></i></div>
+            <h2>Vale mostrar a um médico</h2>
+            <p>Alguns detalhes merecem uma olhada de um dermatologista. É só um cuidado a mais, sem motivo para pânico.</p>
+            <div class="levels" aria-hidden="true"><i></i><i class="on"></i><i></i></div>
+            <div class="levels-l"><span>Tranquilo</span><b style="text-align:center">Atenção</b><span style="text-align:right">Consulta</span></div>
+          </div>
+          <div class="card thumb-row">
+            <div class="photo" role="img" aria-label="Foto analisada"></div>
+            <div><b>Pinta no braço</b><small>Fotografada hoje, 16:31</small></div>
+          </div>
+          <div class="card">
+            <span class="overline">Próximos passos</span>
+            <ol class="steps" style="margin-top:12px">
+              <li><span class="n">1</span>Agende uma consulta nas próximas semanas.</li>
+              <li><span class="n">2</span>Leve esta foto para mostrar ao médico.</li>
+              <li><span class="n">3</span>Fotografe de novo em 1 mês.</li>
+            </ol>
+          </div>
+          <div class="reassure"><i data-icon="heart"></i><span>Esta é uma triagem feita por IA para te orientar. Só um médico pode dar o diagnóstico.</span></div>
+          <button class="more-link" data-go="medio">Ver resultado detalhado<i data-icon="chevron-right"></i></button>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-go="envio">Continuar</button>
+          <button class="btn primary" data-toast="Em breve: dermatologistas perto de você"><i data-icon="map-pin"></i>Buscar médico</button>
+        </div>
+      </section>
+
+      <section class="screen calm on-light risk-high" id="simples-alto" data-label="Resultado simples · alto">
+        <div class="statusbar"></div>
+        <div class="topbar" data-title="Seu resultado"></div>
+        <div class="content">
+          <div class="card calm-hero">
+            <div class="calm-ic"><i data-icon="stethoscope"></i></div>
+            <h2>Vamos cuidar disso logo</h2>
+            <p>Recomendamos que um dermatologista veja esta lesão nas próximas 2 semanas. Quanto antes, melhor.</p>
+            <div class="levels" aria-hidden="true"><i></i><i></i><i class="on"></i></div>
+            <div class="levels-l"><span>Tranquilo</span><span style="text-align:center">Atenção</span><b style="text-align:right">Consulta</b></div>
+          </div>
+          <div class="card thumb-row">
+            <div class="photo" role="img" aria-label="Foto analisada"></div>
+            <div><b>Pinta no braço</b><small>Fotografada hoje, 16:31</small></div>
+          </div>
+          <div class="card">
+            <span class="overline">Próximos passos</span>
+            <ol class="steps" style="margin-top:12px">
+              <li><span class="n">1</span>Agende uma consulta em até 2 semanas.</li>
+              <li><span class="n">2</span>Leve esta foto para mostrar ao médico.</li>
+              <li><span class="n">3</span>Enquanto isso, proteja a área do sol.</li>
+            </ol>
+          </div>
+          <div class="reassure"><i data-icon="heart"></i><span>Muitas lesões assim acabam sendo benignas. A consulta serve para ter certeza.</span></div>
+          <button class="more-link" data-go="atencao">Ver resultado detalhado<i data-icon="chevron-right"></i></button>
+        </div>
+        <div class="sheet-footer row">
+          <button class="btn secondary" data-go="envio">Continuar</button>
+          <button class="btn primary" data-toast="Em breve: dermatologistas perto de você"><i data-icon="map-pin"></i>Buscar médico</button>
+        </div>
+      </section>
+
+      <!-- 13 · COMPARTILHAR -->
+      <section class="screen" id="envio" data-label="Compartilhar resultado">
+        <header class="hdr">
+          <div class="statusbar"></div>
+          <div class="topbar" data-title="Derm.AI You!"></div>
+          <div class="hdr-body">
+            <div class="hdr-title"><span class="tile"><i data-icon="send" class="i-26"></i></span><h1>Compartilhar</h1></div>
+            <p class="hdr-sub">Ajude a melhorar a inteligência artificial.</p>
+          </div>
+        </header>
+        <main class="sheet">
+          <div class="sheet-scroll">
+            <div class="share-hero"><span><i data-icon="shield-check"></i></span></div>
+            <p class="share-text">Escolha o que enviar. Tudo vai de forma anônima e serve só para treinar o modelo.</p>
+            <ul class="card consent">
+              <li><span class="bub"><i data-icon="image"></i></span><div><b>Foto da lesão</b><small>Apenas a área fotografada</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Enviar foto da lesão"></button></li>
+              <li><span class="bub"><i data-icon="clipboard"></i></span><div><b>Suas respostas</b><small>Idade, gênero, pele e região</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Enviar respostas"></button></li>
+            </ul>
+            <div class="trust"><span><i data-icon="lock"></i>Sem nome ou CPF</span><span><i data-icon="shield-check"></i>Só para pesquisa</span></div>
+          </div>
+          <div class="sheet-footer">
+            <button class="btn primary block" data-go="obrigado"><i data-icon="send"></i>Enviar anonimamente</button>
+            <button class="btn text" data-go="obrigado">Prefiro não enviar</button>
+          </div>
+        </main>
+      </section>
+
+      <!-- 11 · OBRIGADO -->
+      <section class="screen plain" id="obrigado" data-label="Obrigado">
+        <div class="statusbar"></div>
+        <div class="done-wrap">
+          <div class="done-badge"><span><i data-icon="check"></i></span><div class="confetti"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <h1>Obrigado!</h1>
+          <p>Sua participação ajuda no diagnóstico precoce de doenças de pele.</p>
+        </div>
+        <div class="sheet-footer">
+          <button class="btn primary block" data-reset data-go="boas-vindas"><i data-icon="camera"></i>Nova avaliação</button>
+        </div>
+      </section>
+
+      <!-- ===== Bottom sheets ===== -->
+      <div class="modal" id="m-termo" aria-hidden="true" role="dialog" aria-labelledby="t-termo">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-termo">Termo de compromisso</h3>
+          <p>O Derm.AI You! é um projeto de pesquisa. A avaliação é feita por inteligência artificial e não substitui uma consulta médica.</p>
+          <p>As fotos e respostas enviadas são anônimas e usadas apenas para pesquisa e para melhorar o modelo.</p>
+          <p><em>Texto provisório do protótipo.</em></p>
+          <button class="btn primary block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="modal" id="m-ajuda" aria-hidden="true" role="dialog" aria-labelledby="t-ajuda">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-ajuda">Dicas para uma boa foto</h3>
+          <ul class="tips">
+            <li><span class="mini"><i data-icon="sun"></i></span>Use luz natural, sem flash</li>
+            <li><span class="mini"><i data-icon="ruler"></i></span>Mantenha cerca de 10 cm da pele</li>
+            <li><span class="mini"><i data-icon="focus"></i></span>Toque na tela para focar a lesão</li>
+            <li><span class="mini"><i data-icon="scan"></i></span>Deixe a lesão no centro do círculo</li>
+          </ul>
+          <button class="btn primary block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="modal" id="m-tons" aria-hidden="true" role="dialog" aria-labelledby="t-tons">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-tons">Por que perguntamos o tom de pele?</h3>
+          <p>Escolha o tom mais parecido com a pele que não pega sol, como a parte de dentro do braço. Isso ajuda a IA a analisar a foto com mais precisão.</p>
+          <button class="btn primary block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="modal" id="m-entenda" aria-hidden="true" role="dialog" aria-labelledby="t-entenda">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-entenda">Como ler o resultado</h3>
+          <ul class="tips">
+            <li><span class="mini"><i data-icon="activity"></i></span><span><b>Chance de ser um problema:</b> o quanto a IA considera que a lesão precisa de cuidado médico.</span></li>
+            <li><span class="mini"><i data-icon="sparkles"></i></span><span><b>Condição mais provável:</b> o tipo de lesão mais parecido com a sua foto.</span></li>
+          </ul>
+          <button class="btn primary block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="modal" id="m-porque" aria-hidden="true" role="dialog" aria-labelledby="t-porque">
+        <div class="modal-card" tabindex="-1"><div class="handle"></div>
+          <h3 id="t-porque">Por que estou vendo isto?</h3>
+          <p>A IA encontrou características que costumam pedir uma avaliação de perto, como cor irregular ou bordas pouco definidas.</p>
+          <p>Muitas lesões assim são benignas, mas só um dermatologista pode confirmar.</p>
+          <button class="btn alert block" data-close>Entendi</button>
+        </div>
+      </div>
+      <div class="toast" role="status"><i data-icon="bell"></i><span></span></div>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Navegação do protótipo">
+    <div class="brand-sm">Derm.AI <span>You!</span></div>
+    <p class="desc">Protótipo navegável do app do paciente. Clique na tela do celular ou pule para qualquer etapa abaixo.</p>
+    <h2>Estilo do resultado</h2>
+    <div class="seg">
+      <button data-style="simples" aria-pressed="false">Simples</button>
+      <button data-style="detalhado" aria-pressed="true">Detalhado</button>
+    </div>
+    <h2>Nível simulado</h2>
+    <div class="seg">
+      <button data-risk="baixo" aria-pressed="true">Baixo</button>
+      <button data-risk="medio" aria-pressed="false">Médio</button>
+      <button data-risk="alto" aria-pressed="false">Alto</button>
+    </div>
+    <h2>Fluxo de telas</h2>
+    <ol class="flow" id="flow"></ol>
+    <div class="panel-links">
+      <a href="../doutor/">Abrir app do doutor →</a>
+      <a href="../">← Voltar ao início</a>
+    </div>
+  </aside>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
